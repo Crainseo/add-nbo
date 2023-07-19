@@ -25,3 +25,13 @@ uint32_t readNumberFromFile(const char* filepath) {
         printf("파일을 열 수 없습니다.\n");
         return 0;
     }
+
+    uint32_t number;
+    fread(&number, sizeof(uint32_t), 1, file);
+
+    // Network byte order에서 Host byte order로 변환
+    number = ntohl(number);
+
+    fclose(file);
+    return number;
+}
